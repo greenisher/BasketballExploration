@@ -1,0 +1,82 @@
+---
+title: "Basketball Exploration"
+author: "Bonnie LT Green"
+date: "22 February 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Basketball Exploration
+
+Using a dataset downloaded from <https://www.superdatascience.com/rcourse/>, I will be exploring the stats of the top ten highest paid basketball players in the USA over the years 2005-2014, looking for trends. 
+
+```{r cars}
+summary(cars)
+```
+
+# Overall Player Accuracy
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+myplot(FieldGoals/FieldGoalAttempts)
+```
+
+From this data, we have an excellent idea of the overall player accuracy - I've divided the number of times a successful field goal was scored by the number of attempts and we can see that Dwight Howard leads the pack, with the highest paid player Kobe Bryant's accuracy trending radically downwardsto around 37%. What could be causing this?
+
+First, I'm going to look into the data itself, and then into the players. My hypothesis is that Dwight Howard has a higher accuracy because the other players make more - and potentially riskier - shots, lowering their chances of scoring.
+
+```{r pressure, echo=FALSE}
+myplot(FieldGoalAttempts)
+myplot(FieldGoalAttempts/Games)
+
+```
+
+If we compare field goal attempts per game to accuracy, we can see that Dwight Howard tends to make the fewest attempts; in fact, only one player has made fewer attempts by him, and that was during a single season.
+
+So why does Dwight Howard make so few attempts to score? Dwight Howard plays Center, a role that's primarily defensive. 
+
+#So what about player style?
+
+It's one thing to explore accuracy. Another valuable component of any player is their style. What percentage of throws do each make that are 2-pointers or 3-pointers?
+
+```{r pressure, echo=FALSE}
+myplot((Points - FreeThrows)/FieldGoals)
+
+```
+
+This graph shows the percentage of goals each player scores with free throws removed. From it, we can see that once again Dwight Howard hovers near the bottom, primarily scoring two pointers. We can also map how Joe Johnson's style has changed over time; as the seasons progress he aims for higher scoring baskets. This also correlates with the downward trend of his accuracy; if he's playing riskier shots for a higher payoff, his overall accuracy will trend downwards.
+
+## Does the time a player is on the field correlate to their pay?
+
+```{r pressure, echo=FALSE}
+myplot(Salary)
+```
+This is a chart of player salary over the past few seasons. Each player has trended upwards throughout their NBA careers, with Kobe Bryant having the highest salary by quite some margin. Is this due to an increase of time on the court or due to an increase of points gained for their respective teams?
+
+First, let's look at how much they get paid per minute on the court.
+
+```{r pressure, echo=FALSE}
+myplot(Salary/MinutesPlayed)
+```
+
+Wow! What could've caused those massive spikes for Kobe Bryant and Derrick Rose? Let's look at Minutes Player per player separately:
+
+```{r pressure, echo=FALSE}
+myplot(MinutesPlayed)
+```
+
+Right, so as we can see, Derrick Rose and Kobe Bryant played for very short periods of time around the same points as their respective spikes. From the graph above, we can also see that Kobe Bryant received a large payrise as his time on the court took a severe dip - meaning he was essentially paid three million for roughly 177 minutes of on-court time. Both of these dips can be explained by injuries. The injury prone nature of sportspersons also explains the sharp dips and outliers of this chart. But why the general downward trend? That's easy to explain; this graph is over ten years. Many of these players are now in their thirties and prepping for retirement.
+
+Okay, so while we can see a mild upwards trend between time on court and salary, the wild spikes and the injury-prone nature of sportspeople probably doesn't lead to causation. What about goal accuracy?
+
+```{r pressure, echo=FALSE}
+myplot(Salary/(FieldGoals/FieldGoalAttempts))
+```
+
+When we examine the salary over the field goal accuracy, we can see a general trend upwards, which correlates with the pay increases. I would also argue that the 'brand name' value of each player affects their pricing, but I do not currently have that data to explore.
+
+In conclusion, Basketball is a weird sport and I do not understand its rules. But Kobe Bryant and Dwight Howard seem like awesome players.
